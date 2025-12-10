@@ -529,7 +529,7 @@ export default function App() {
                    <div className="space-y-4">
                      <div className="flex items-center gap-3 text-slate-300">
                        <Mail className="text-blue-400" />
-                       <span>service@monocore.tw</span>
+                       <span>sp020364@gmail.com</span>
                      </div>
                      <div className="flex items-center gap-3 text-slate-300">
                        <Instagram className="text-pink-400" />
