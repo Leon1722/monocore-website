@@ -18,12 +18,47 @@ import {
 } from 'lucide-react';
 
 // 模擬作品集資料 (已移除光固化項目)
+// 【修改說明】：
+// 請將您的圖片檔案 (例如: p1.jpg, p2.jpg) 放入專案的 "public" 資料夾中
+// 然後修改下方的 image 欄位，格式為 "url('/檔名')"
 const portfolioItems = [
-  { id: 1, title: "工業級原型", category: "FDM / PLA", image: "linear-gradient(135deg, #1e293b 0%, #334155 100%)", desc: "高強度機械結構驗證" },
-  { id: 3, title: "客製化與禮品", category: "FDM / 雙色絲綢", image: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)", desc: "獨一無二的漸層色彩" },
-  { id: 4, title: "建築沙盤模型", category: "FDM / 白色 PLA", image: "linear-gradient(135deg, #334155 0%, #475569 100%)", desc: "精確還原建築比例" },
-  { id: 5, title: "醫療輔具", category: "TPU / 軟料", image: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)", desc: "具有彈性且親膚的材質" },
-  { id: 6, title: "汽機車改裝件", category: "ABS / 耐熱材質", image: "linear-gradient(135deg, #64748b 0%, #94a3b8 100%)", desc: "耐高溫與耐候性測試" },
+  { 
+    id: 1, 
+    title: "工業級原型", 
+    category: "FDM / PLA", 
+    // 修改這裡：將原本的漸層色改成您的圖片路徑，例如 url('/project1.jpg')
+    image: "url('/project1.jpg')", 
+    desc: "高強度機械結構驗證" 
+  },
+  { 
+    id: 3, 
+    title: "客製化與禮品", 
+    category: "FDM / 雙色絲綢", 
+    // 如果還沒有圖片，可以暫時保留 linear-gradient 這種漸層色當作預設圖
+    image: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)", 
+    desc: "獨一無二的漸層色彩" 
+  },
+  { 
+    id: 4, 
+    title: "建築沙盤模型", 
+    category: "FDM / 白色 PLA", 
+    image: "url('/building.jpg')", // 範例：假設您放了一張 building.jpg
+    desc: "精確還原建築比例" 
+  },
+  { 
+    id: 5, 
+    title: "醫療輔具", 
+    category: "TPU / 軟料", 
+    image: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)", 
+    desc: "具有彈性且親膚的材質" 
+  },
+  { 
+    id: 6, 
+    title: "汽機車改裝件", 
+    category: "ABS / 耐熱材質", 
+    image: "linear-gradient(135deg, #64748b 0%, #94a3b8 100%)", 
+    desc: "耐高溫與耐候性測試" 
+  },
 ];
 
 // 報價參數設定 (已移除 Resin 與 噴漆上色)
