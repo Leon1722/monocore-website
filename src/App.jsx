@@ -57,6 +57,9 @@ export default function App() {
   
   const [analyzing, setAnalyzing] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(null);
+  
+  // 聯絡表單的訊息內容 (現在可以用程式控制它了)
+  const [contactMessage, setContactMessage] = useState('');
 
   // 計算價格邏輯
   const calculatePrice = () => {
@@ -65,6 +68,29 @@ export default function App() {
     const postProcessCost = PRICING_CONFIG.postProcessing[quoteData.postProcess].price;
     const subtotal = PRICING_CONFIG.startupFee + materialCost + timeCost + postProcessCost;
     return Math.round(subtotal * quoteData.quantity);
+  };
+
+  // 處理「送出訂單需求」按鈕點擊
+  const handleSendQuote = () => {
+    const price = calculatePrice();
+    const summary = `【線上估價需求單】
+-------------------------
+材質：${PRICING_CONFIG.materials[quoteData.material].name}
+預估重量：${quoteData.weight} g
+列印時間：${quoteData.time} 小時
+後處理：${PRICING_CONFIG.postProcessing[quoteData.postProcess].name}
+數量：${quoteData.quantity} 件
+-------------------------
+系統預估金額：$${price.toLocaleString()} TWD
+
+(備註：請在此描述您的其他需求或上傳檔案連結...)`;
+    
+    // 1. 設定訊息內容
+    setContactMessage(summary);
+    // 2. 切換到聯絡頁面
+    setActiveSection('contact');
+    // 3. 滾動到頂部 (在手機版體驗較好)
+    window.scrollTo(0, 0);
   };
 
   // 模擬檔案上傳與分析
@@ -433,7 +459,10 @@ export default function App() {
                     </span>
                   </div>
 
-                  <button className="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-bold shadow-lg shadow-blue-600/25 transition-all transform active:scale-95">
+                  <button 
+                    onClick={handleSendQuote}
+                    className="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-bold shadow-lg shadow-blue-600/25 transition-all transform active:scale-95"
+                  >
                     送出訂單需求
                   </button>
                   <p className="text-center text-xs text-slate-500 mt-4">
@@ -519,6 +548,9 @@ export default function App() {
                     required       
                     className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none h-32" 
                     placeholder="請描述您的需求..." 
+                    // 將表單內容與狀態變數連動，這樣自動跳轉時才填得進去
+                    value={contactMessage}
+                    onChange={(e) => setContactMessage(e.target.value)}
                   />
                 </div>
                 <button 
