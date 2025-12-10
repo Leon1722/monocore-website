@@ -28,8 +28,8 @@ const portfolioItems = [
 
 // 報價參數設定 (已移除 Resin 與 噴漆上色)
 const PRICING_CONFIG = {
-  startupFee: 0, // 開機費/基本費 (NTD)
-  hourlyRate: 0,  // 機器每小時運作成本 (NTD)
+  startupFee: 150, // 開機費/基本費 (NTD)
+  hourlyRate: 50,  // 機器每小時運作成本 (NTD)
   materials: {
     pla: { name: "標準 PLA", pricePerGram: 2.5, desc: "最通用，適合一般模型" },
     petg: { name: "耐用 PETG", pricePerGram: 3.0, desc: "耐溫耐候，適合機構件" },
@@ -39,7 +39,6 @@ const PRICING_CONFIG = {
   postProcessing: {
     none: { name: "僅拆支撐", price: 0 },
     sanding: { name: "基本打磨", price: 200 },
-    // painting 選項已移除
   }
 };
 
@@ -58,7 +57,6 @@ export default function App() {
   
   const [analyzing, setAnalyzing] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(null);
-  const [contactMessage, setContactMessage] = useState('');
 
   // 計算價格邏輯
   const calculatePrice = () => {
@@ -467,7 +465,7 @@ export default function App() {
                    <div className="space-y-4">
                      <div className="flex items-center gap-3 text-slate-300">
                        <Mail className="text-blue-400" />
-                       <span>sp020364@gmail.com</span>
+                       <span>service@monocore.tw</span>
                      </div>
                      <div className="flex items-center gap-3 text-slate-300">
                        <Instagram className="text-pink-400" />
@@ -485,20 +483,39 @@ export default function App() {
                  </div>
               </div>
 
-              <form className="space-y-4">
+              <form 
+                action="https://formspree.io/f/mqaryevp" 
+                method="POST"
+                className="space-y-4"
+              >
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm text-slate-400 mb-1">姓名</label>
-                    <input type="text" className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none" placeholder="您的稱呼" />
+                    <input 
+                      type="text" 
+                      name="name"  
+                      required     
+                      className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none" 
+                      placeholder="您的稱呼" 
+                    />
                   </div>
                   <div>
                     <label className="block text-sm text-slate-400 mb-1">Email</label>
-                    <input type="email" className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none" placeholder="name@example.com" />
+                    <input 
+                      type="email" 
+                      name="email" 
+                      required     
+                      className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none" 
+                      placeholder="name@example.com" 
+                    />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm text-slate-400 mb-1">主旨</label>
-                  <select className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none">
+                  <select 
+                    name="subject" 
+                    className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none"
+                  >
                     <option>詢問報價</option>
                     <option>代工合作</option>
                     <option>急件處理</option>
@@ -510,13 +527,16 @@ export default function App() {
                     訊息內容
                   </label>
                   <textarea 
-                    value={contactMessage}
-                    onChange={(e) => setContactMessage(e.target.value)}
+                    name="message" 
+                    required       
                     className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none h-32" 
                     placeholder="請描述您的需求..." 
                   />
                 </div>
-                <button className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl font-bold transition-colors">
+                <button 
+                  type="submit" 
+                  className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl font-bold transition-colors"
+                >
                   發送訊息
                 </button>
               </form>
