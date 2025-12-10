@@ -488,27 +488,15 @@ export default function App() {
                 method="POST"
                 className="space-y-4"
               >
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm text-slate-400 mb-1">姓名</label>
-                    <input 
-                      type="text" 
-                      name="name"  
-                      required     
-                      className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none" 
-                      placeholder="您的稱呼" 
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-slate-400 mb-1">Email</label>
-                    <input 
-                      type="email" 
-                      name="email" 
-                      required     
-                      className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none" 
-                      placeholder="name@example.com" 
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm text-slate-400 mb-1">姓名</label>
+                  <input 
+                    type="text" 
+                    name="name"  
+                    required     
+                    className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none" 
+                    placeholder="您的稱呼" 
+                  />
                 </div>
                 <div>
                   <label className="block text-sm text-slate-400 mb-1">主旨</label>
