@@ -63,8 +63,8 @@ const portfolioItems = [
 
 // 報價參數設定 (已移除 Resin 與 噴漆上色)
 const PRICING_CONFIG = {
-  startupFee: 150, // 開機費/基本費 (NTD)
-  hourlyRate: 50,  // 機器每小時運作成本 (NTD)
+  startupFee: 0, // 開機費/基本費 (NTD)
+  hourlyRate: 0,  // 機器每小時運作成本 (NTD)
   materials: {
     pla: { name: "標準 PLA", pricePerGram: 2.5, desc: "最通用，適合一般模型" },
     petg: { name: "耐用 PETG", pricePerGram: 3.0, desc: "耐溫耐候，適合機構件" },
