@@ -479,7 +479,7 @@ export default function App() {
                  </div>
                  <div className="bg-slate-700/30 p-4 rounded-xl">
                    <h4 className="font-bold text-sm text-slate-300 mb-2">營業時間</h4>
-                   <p className="text-slate-400 text-sm">週一至週五: 10:00 - 19:00<br/>週六、日: 預約制</p>
+                   <p className="text-slate-400 text-sm">週一至週五: 10:00 - 19:00<br/>週六、日: 休息</p>
                  </div>
               </div>
 
