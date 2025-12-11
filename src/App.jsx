@@ -14,51 +14,17 @@ import {
   ChevronRight,
   Cpu,
   Layers,
-  Zap
+  Zap,
+  Link as LinkIcon // 新增一個連結圖示
 } from 'lucide-react';
 
 // 模擬作品集資料 (已移除光固化項目)
-// 【修改說明】：
-// 請將您的圖片檔案 (例如: p1.jpg, p2.jpg) 放入專案的 "public" 資料夾中
-// 然後修改下方的 image 欄位，格式為 "url('/檔名')"
 const portfolioItems = [
-  { 
-    id: 1, 
-    title: "工業級原型", 
-    category: "FDM / PLA", 
-    // 修改這裡：將原本的漸層色改成您的圖片路徑，例如 url('/project1.jpg')
-    image: "url('/project1.jpg')", 
-    desc: "高強度機械結構驗證" 
-  },
-  { 
-    id: 3, 
-    title: "客製化與禮品", 
-    category: "FDM / 雙色絲綢", 
-    // 如果還沒有圖片，可以暫時保留 linear-gradient 這種漸層色當作預設圖
-    image: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)", 
-    desc: "獨一無二的漸層色彩" 
-  },
-  { 
-    id: 4, 
-    title: "建築沙盤模型", 
-    category: "FDM / 白色 PLA", 
-    image: "url('/building.jpg')", // 範例：假設您放了一張 building.jpg
-    desc: "精確還原建築比例" 
-  },
-  { 
-    id: 5, 
-    title: "醫療輔具", 
-    category: "TPU / 軟料", 
-    image: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)", 
-    desc: "具有彈性且親膚的材質" 
-  },
-  { 
-    id: 6, 
-    title: "汽機車改裝件", 
-    category: "ABS / 耐熱材質", 
-    image: "linear-gradient(135deg, #64748b 0%, #94a3b8 100%)", 
-    desc: "耐高溫與耐候性測試" 
-  },
+  { id: 1, title: "工業級原型", category: "FDM / PLA", image: "linear-gradient(135deg, #1e293b 0%, #334155 100%)", desc: "高強度機械結構驗證" },
+  { id: 3, title: "客製化與禮品", category: "FDM / 雙色絲綢", image: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)", desc: "獨一無二的漸層色彩" },
+  { id: 4, title: "建築沙盤模型", category: "FDM / 白色 PLA", image: "linear-gradient(135deg, #334155 0%, #475569 100%)", desc: "精確還原建築比例" },
+  { id: 5, title: "醫療輔具", category: "TPU / 軟料", image: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)", desc: "具有彈性且親膚的材質" },
+  { id: 6, title: "汽機車改裝件", category: "ABS / 耐熱材質", image: "linear-gradient(135deg, #64748b 0%, #94a3b8 100%)", desc: "耐高溫與耐候性測試" },
 ];
 
 // 報價參數設定 (已移除 Resin 與 噴漆上色)
@@ -93,7 +59,7 @@ export default function App() {
   const [analyzing, setAnalyzing] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(null);
   
-  // 聯絡表單的訊息內容 (現在可以用程式控制它了)
+  // 聯絡表單的訊息內容
   const [contactMessage, setContactMessage] = useState('');
 
   // 計算價格邏輯
@@ -108,6 +74,7 @@ export default function App() {
   // 處理「送出訂單需求」按鈕點擊
   const handleSendQuote = () => {
     const price = calculatePrice();
+    // 這裡的文字會自動填入下方的訊息框
     const summary = `【線上估價需求單】
 -------------------------
 材質：${PRICING_CONFIG.materials[quoteData.material].name}
@@ -118,13 +85,13 @@ export default function App() {
 -------------------------
 系統預估金額：$${price.toLocaleString()} TWD
 
-(備註：請在此描述您的其他需求或上傳檔案連結...)`;
+【重要】檔案傳送：
+請在下方貼上 Google Drive / Dropbox 連結，或是留下 "請回信索取檔案"，我們將由專人與您聯繫。
+
+檔案連結：(請貼在此處)`;
     
-    // 1. 設定訊息內容
     setContactMessage(summary);
-    // 2. 切換到聯絡頁面
     setActiveSection('contact');
-    // 3. 滾動到頂部 (在手機版體驗較好)
     window.scrollTo(0, 0);
   };
 
@@ -378,6 +345,7 @@ export default function App() {
                         <Upload className="mb-2" size={32} />
                         <span>點擊或拖曳 STL 檔案至此</span>
                         <span className="text-xs mt-1 text-slate-500">支援 .STL, .OBJ (最大 50MB)</span>
+                        <span className="text-xs text-yellow-500 mt-2">*此處僅供分析，送單請於下方提供連結</span>
                       </div>
                     )}
                   </div>
@@ -522,6 +490,19 @@ export default function App() {
         {activeSection === 'contact' && (
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <h2 className="text-3xl font-bold mb-8 text-center">聯絡我們</h2>
+            
+            {/* 新增提示區塊 */}
+            <div className="mb-6 p-4 bg-blue-900/20 border border-blue-500/30 rounded-xl text-sm text-blue-200 flex gap-3 items-start">
+              <LinkIcon className="shrink-0 mt-0.5" size={18} />
+              <div>
+                <p className="font-bold mb-1">關於檔案傳送：</p>
+                <p className="text-slate-400">
+                  為了確保您的 3D 檔案安全性與完整性，請將檔案上傳至 Google Drive 或 Dropbox，並將連結貼在下方的訊息框中。
+                  <br/>若不方便提供連結，請在訊息中備註「請回信索取檔案」，我們會主動 Email 聯繫您。
+                </p>
+              </div>
+            </div>
+
             <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl">
               <div className="grid md:grid-cols-2 gap-8 mb-8">
                  <div>
@@ -576,13 +557,13 @@ export default function App() {
                 </div>
                 <div>
                   <label className="block text-sm text-slate-400 mb-1 flex justify-between">
-                    訊息內容
+                    訊息內容 (請在此貼上檔案連結)
                   </label>
                   <textarea 
                     name="message" 
                     required       
-                    className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none h-32" 
-                    placeholder="請描述您的需求..." 
+                    className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none h-48" 
+                    placeholder="請描述您的需求，或貼上檔案連結..." 
                     // 將表單內容與狀態變數連動，這樣自動跳轉時才填得進去
                     value={contactMessage}
                     onChange={(e) => setContactMessage(e.target.value)}
